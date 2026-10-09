@@ -15,26 +15,64 @@ public class PadelCourtService  implements IPadelCourtService {
 
     @Override
     public PadelCourt createPadelCourt(PadelCourt padelCourt) {
-        return null;
+        if(!this.validator(padelCourt)) {
+            return null;
+        }
+
+        return padelCourtRepository.save(padelCourt);
     }
 
     @Override
     public List<PadelCourt> getAllPadelCourts() {
-        return List.of();
+        return padelCourtRepository.findAll();
     }
 
     @Override
     public PadelCourt getPadelCourtById(Long id) {
-        return null;
+        return padelCourtRepository.findById(id).orElse(null);
     }
 
     @Override
     public PadelCourt updatePadelCourt(Long id, PadelCourt padelCourt) {
-        return null;
+
+        PadelCourt padelCourt1 = getPadelCourtById(id);
+
+        if(padelCourt1 == null) {
+            return null;
+        }
+
+        if(!this.validator(padelCourt)) {
+            return null;
+        }
+
+
+        padelCourt1.setType_court(padelCourt.getType_court());
+        padelCourt1.setReservations(padelCourt.getReservations());
+
+        return padelCourtRepository.save(padelCourt1);
     }
 
     @Override
     public boolean deletePadelCourt(Long id) {
-        return false;
+        PadelCourt padelCourt1 = getPadelCourtById(id);
+
+        if(padelCourt1 == null) {
+            return false;
+        }
+        padelCourtRepository.delete(padelCourt1);
+        return true;
     }
+
+    private boolean validator(PadelCourt padelCourt) {
+
+        if(padelCourt.getType_court() == null || padelCourt.getType_court().isEmpty()) {
+            return false;
+        }
+        if(padelCourt.getReservations() == null || padelCourt.getReservations().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+
 }
