@@ -76,6 +76,9 @@ public class ReservationService implements IReservationService {
         if (reservation.getUser() == null) {
             return false;
         }
+        if(reservation.getCourt() == null) {
+            return false;
+        }
         return true;
     }
 }

@@ -65,13 +65,13 @@ public class UserService implements IUserService {
 
     private boolean validator(User user) {
 
-        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+        if (user.getEmail() == null || user.getEmail().isBlank()) {
             return false;
         }
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+        if (user.getPassword() == null || user.getPassword().isBlank()) {
             return false;
         }
-        if ((user.getName() == null) || user.getName().isEmpty()) {
+        if ((user.getName() == null) || user.getName().isBlank()) {
             return false;
         }
         return true;

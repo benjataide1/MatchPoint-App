@@ -45,9 +45,7 @@ public class PadelCourtService  implements IPadelCourtService {
             return null;
         }
 
-
         padelCourt1.setType_court(padelCourt.getType_court());
-        padelCourt1.setReservations(padelCourt.getReservations());
 
         return padelCourtRepository.save(padelCourt1);
     }
@@ -65,14 +63,11 @@ public class PadelCourtService  implements IPadelCourtService {
 
     private boolean validator(PadelCourt padelCourt) {
 
-        if(padelCourt.getType_court() == null || padelCourt.getType_court().isEmpty()) {
+        if(padelCourt.getType_court() == null || padelCourt.getType_court().isBlank()) {
             return false;
         }
-        if(padelCourt.getReservations() == null || padelCourt.getReservations().isEmpty()) {
-            return false;
-        }
+
         return true;
     }
-
 
 }
