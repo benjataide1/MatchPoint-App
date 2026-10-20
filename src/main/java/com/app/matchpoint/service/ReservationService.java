@@ -1,7 +1,11 @@
 package com.app.matchpoint.service;
 
+import com.app.matchpoint.model.PadelCourt;
 import com.app.matchpoint.model.Reservation;
+import com.app.matchpoint.model.User;
+import com.app.matchpoint.repository.IPadelCourtRepository;
 import com.app.matchpoint.repository.IReservationRepository;
+import com.app.matchpoint.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,12 @@ public class ReservationService implements IReservationService {
     @Autowired
     private IReservationRepository reservationRepository;
 
+    @Autowired
+    private IUserRepository userRepository;
+
+    @Autowired
+    private IPadelCourtRepository padelCourtRepository;
+
 
     @Override
     public Reservation createReservation(Reservation reservation) {
@@ -20,6 +30,20 @@ public class ReservationService implements IReservationService {
         if (!this.validator(reservation)) {
             return null;
         }
+
+        if(reservation.getUser().getId_user() == null || reservation.getCourt().getId_court() == null) {
+            return null;
+        }
+
+        User user = userRepository.findById(reservation.getUser().getId_user()).orElse(null);
+
+        PadelCourt court = padelCourtRepository.findById(reservation.getCourt().getId_court()).orElse(null);
+
+        if(user == null || court == null) {
+            return null;
+        }
+        reservation.setUser(user);
+        reservation.setCourt(court);
 
         return reservationRepository.save(reservation);
     }

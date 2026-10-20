@@ -2,7 +2,6 @@ package com.app.matchpoint.controller;
 
 import com.app.matchpoint.model.Reservation;
 import com.app.matchpoint.service.IReservationService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
