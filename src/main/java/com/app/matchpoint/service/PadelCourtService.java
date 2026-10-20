@@ -46,6 +46,7 @@ public class PadelCourtService  implements IPadelCourtService {
         }
 
         padelCourt1.setType_court(padelCourt.getType_court());
+        padelCourt1.setPrice(padelCourt.getPrice());
 
         return padelCourtRepository.save(padelCourt1);
     }

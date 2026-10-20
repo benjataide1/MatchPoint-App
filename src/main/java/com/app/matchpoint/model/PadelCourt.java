@@ -18,6 +18,7 @@ public class PadelCourt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_court;
     private String type_court;
+    private Double price;
 
     @OneToMany(mappedBy = "court")
     private List<Reservation> reservations;
